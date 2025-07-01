@@ -1,5 +1,5 @@
-import React from 'react';
-import { useTable, Column } from 'react-table';
+import { useMemo } from 'react';
+import { useTable } from 'react-table';
 
 type RowData = {
   name: string;
@@ -7,8 +7,8 @@ type RowData = {
   status: string;
 };
 
-const SpreadsheetTable: React.FC = () => {
-  const data = React.useMemo<RowData[]>(
+const SpreadsheetTable = () => {
+  const data = useMemo<RowData[]>(
     () => [
       { name: 'John Doe', email: 'john@example.com', status: 'Active' },
       { name: 'Jane Smith', email: 'jane@example.com', status: 'Pending' },
@@ -17,7 +17,7 @@ const SpreadsheetTable: React.FC = () => {
     []
   );
 
-  const columns = React.useMemo<Column<RowData>[]>(
+  const columns = useMemo(
     () => [
       { Header: 'Name', accessor: 'name' },
       { Header: 'Email', accessor: 'email' },
@@ -39,9 +39,9 @@ const SpreadsheetTable: React.FC = () => {
       <div className="border border-gray-300 rounded-md shadow bg-white overflow-hidden">
         <table {...getTableProps()} className="min-w-full text-sm text-left">
           <thead className="bg-gray-100">
-            {headerGroups.map((headerGroup, i) => (
+            {headerGroups.map((headerGroup: any, i: number) => (
               <tr {...headerGroup.getHeaderGroupProps()} key={i}>
-                {headerGroup.headers.map((column, j) => (
+                {headerGroup.headers.map((column: any, j: number) => (
                   <th
                     {...column.getHeaderProps()}
                     key={j}
@@ -54,11 +54,11 @@ const SpreadsheetTable: React.FC = () => {
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {rows.map((row, rowIndex) => {
+            {rows.map((row: any, rowIndex: number) => {
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()} key={rowIndex} className="hover:bg-gray-50">
-                  {row.cells.map((cell, cellIndex) => (
+                  {row.cells.map((cell: any, cellIndex: number) => (
                     <td
                       {...cell.getCellProps()}
                       key={cellIndex}
